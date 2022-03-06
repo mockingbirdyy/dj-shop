@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="mx-5">
+        <div class="row g-5">
+            <div class="col-md-5 col-lg-4 order-md-last">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-primary">other</span>
+                </h4>
+                <ul class="list-group mb-3 ">
+                    <li class="list-group-item d-flex justify-content-between lh-sm shadow-sm">
+                        <div>
+                            <a href="#">
+                                <h6 class="my-2">Already have an account?</h6>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm shadow-sm">
+                        <div>
+                            <a href="#">
+                                <h6 class="my-2">Sign up with google</h6>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <hr>
+            </div>
+            <div class="col-md-7 col-md-8">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            {{ form.none_fields_errors }}
+                            {{ form.phone_number.errors }}
+                            <label class="form-label">Phone Number</label>
+                            {{ form.phone_number }}
+                        </div>
+                        <div class="col-sm-6">
+                            {{ form.email.errors }}
+                            <label class="form-label">Email</label>
+                            {{ form.email }}
+                        </div>
+                        <div class="col-12">
+                            {{ form.full_name.errors }}
+                            <label class="form-label">Full Name</label>
+                            {{ form.full_name }}
+                        </div>
+                        <div class="col-sm-6">
+                            {{ form.password1.errors }}
+                            <label class="form-label">Password</label>
+                            {{ form.password1 }}
+                        </div>
+                        <div class="col-sm-6">
+                            {{ form.password2.errors }}
+                            <label class="form-label">Confirm Password</label>
+                            {{ form.password2 }}
+                        </div>
+                        <div class="d-grid gap-2">
+                            <input class="btn btn-outline-secondary"type="submit" value="Register">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
