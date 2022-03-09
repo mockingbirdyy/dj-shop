@@ -11,19 +11,18 @@
           rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
           crossorigin="anonymous">
+    {% block static_link %}
+    {% endblock static_link %}
 </head>
 <body>
     {% include 'includes/messages.html' %}
     {% include 'includes/navbar.html' %}
-   
     <div class=" m-2 p-3 ">
         <div class="mx-5">
-            
             {% block content %}
-               
             {% endblock content %}
         </div>
-    </div>  
+    </div>
     {% include 'includes/footer.html' %}
 </body>
 </html>
