@@ -5,15 +5,16 @@ from utils import send_otp_code
 from .models import User, OtpCode
 from django.contrib import messages
 from datetime import datetime
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView, PasswordResetForm, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from django import forms
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 
 
 
 class RegisterView(View):
     form_class = UserCreationForm
-    
+
     def get(self, request):
         form = self.form_class
         return render(request, 'accounts/register.html', {'form': form})
@@ -22,7 +23,7 @@ class RegisterView(View):
         form = self.form_class(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            # Sending otp code to verify user 
+            # Sending otp code to verify user
             send_otp_code(cd['phone_number'])
             # Save user info in sessions
             request.session['user_registration_info'] = {
@@ -37,7 +38,7 @@ class RegisterView(View):
 
 class VerifyCodeView(View):
     form_class = VerifyCodeForm
-    
+
     def get(self, request):
         form = self.form_class
         return render(request, 'accounts/verify_code.html', {'form': form})
@@ -50,7 +51,7 @@ class VerifyCodeView(View):
         # Creating expiration code using datetime
         code_created_time = int(sent_code.created.strftime("%Y%m%d%H%M%S"))
         now = int(datetime.now().strftime("%Y%m%d%H%M%S"))
-        time_passing  = now - code_created_time
+        time_passing = now - code_created_time
         expire_time = 30
         if form.is_valid():
             cd = form.cleaned_data
@@ -71,10 +72,10 @@ class VerifyCodeView(View):
             elif cd['code'] != sent_code.code:
                 messages.error(request, 'This code is wrong', 'danger')
                 return render(request, 'accounts/verify_code.html', {'form': form})
-            
+
             else:
                 return render(request, 'accounts/verify_code.html', {'form': form})
-            
+
         return render(request, 'accounts/verify_code.html', {'form': form})
 
 
@@ -82,21 +83,57 @@ class SendVerifyCodeAgain(View):
 
     def get(self, request):
         user_sessions = request.session['user_registration_info']
-        previous_code = OtpCode.objects.get(phone_number=user_sessions['phone_number'])
+        previous_code = OtpCode.objects.get(
+            phone_number=user_sessions['phone_number'])
         if previous_code:
             previous_code.delete()
-        send_otp_code(phone_number = user_sessions['phone_number'])
+        send_otp_code(phone_number=user_sessions['phone_number'])
         return redirect('accounts:verify_code')
 
 
 class UserLoginView(LoginView):
     template_name = 'accounts/login.html'
     # overriding get_form class to customize froms in UserLOginView: here using bootstrap
+
     def get_form(self, form_class=None):
         form = super().get_form(form_class=form_class)
-        form.fields['username'].widget = forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Phone number'})
-        form.fields['password'].widget = forms.PasswordInput(attrs={'class': 'form-control', 'placeholder':'Password'})
+        form.fields['username'].widget = forms.TextInput(
+            attrs={'class': 'form-control', 'placeholder': 'Phone number'})
+        form.fields['password'].widget = forms.PasswordInput(
+            attrs={'class': 'form-control', 'placeholder': 'Password'})
         return form
+
 
 class UserLogoutView(LoginRequiredMixin, LogoutView):
     next_page = 'products:home'
+
+#############################################################################
+
+"""Reset password  when users have fogotten thier password,
+here using google smtp but you can use other services"""
+
+class UserPasswordResetView(PasswordResetView):
+    template_name = 'accounts/user_password_reset.html'
+    email_template_name = 'accounts/email_template.html'
+    success_url = reverse_lazy('accounts:user_password_reset_done')
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class=form_class)
+        form.fields['email'].widget = forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'})
+        return form
+
+class UserPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'accounts/user_password_reset_done.html'
+
+class UserPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'accounts/user_password_reset_confirm.html'
+    success_url = reverse_lazy('accounts:user_password_reset_complete')
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class=form_class)
+        form.fields['new_password1'].widget = forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'})
+        form.fields['new_password2'].widget = forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirm Password'})
+        return form
+
+class UserPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = 'accounts/user_password_reset_complete.html'
