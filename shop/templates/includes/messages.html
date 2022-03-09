@@ -1,9 +1,10 @@
-<!--checks if there is message-->
 {% if messages %}
     {% for message  in  messages %}
-        <!--print message with bootstrap alert-->
-        <p class="alert alert-{{ message.tags }}">
-            {{ message }}
-        </p>
+        <div class=" text-center">
+            <!--print message with bootstrap alert-->
+            <p class="alert alert-{{ message.tags }}  text-secondary">
+                {{ message }}
+            </p>
+        </div>
     {% endfor %}
 {% endif %}

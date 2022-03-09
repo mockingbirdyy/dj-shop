@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container text-center">
+        <div class="card-body rounded mt-4 form-control shadow"
+             style="margin: auto;
+                    width: 40%;
+                    border: 5px;
+                    padding: 20px;">
+            <form method="post" action="">
+                <div class="card-body text-center">
+                    <h3 class="h3 mb-3 fw-normal">Please enter the code</h3>
+                    <div class="col">
+                        {% csrf_token %}
+                        {{ form.none_fields_errors }}
+                        {{ form.code.errors }}
+                        {{ form.code }}
+                    </div>
+                    <br>
+                    <div class="d-grid gap-2">
+                        <input class="btn btn-outline-primary" type="submit" value="Register">
+                    </div>
+                </form>
+            </div>
+            <a href="{% url 'accounts:verify_code_again' %}"><small class="">Send another code</small></a>
+        </div>
+    </div>
+{% endblock content %}

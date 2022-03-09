@@ -1,10 +1,13 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin, Group
-from .models import User
+from .models import User, OtpCode
 from .forms import UserChangeForm, UserCreationForm
 
+@admin.register(OtpCode)
+class OtpCodeAdmin(admin.ModelAdmin):
+    list_display = ('phone_number', 'code', 'created')
 
-class UserAdmin(UserAdmin):
+class UserAdminClass(UserAdmin):
 
     form = UserChangeForm
     add_form = UserCreationForm
@@ -28,5 +31,6 @@ class UserAdmin(UserAdmin):
     filter_horizontal = ()
 
 
+
+admin.site.register(User, UserAdminClass)
 admin.site.unregister(Group)
-admin.site.register(User, UserAdmin)

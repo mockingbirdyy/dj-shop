@@ -13,12 +13,17 @@
           crossorigin="anonymous">
 </head>
 <body>
+    {% include 'includes/messages.html' %}
     {% include 'includes/navbar.html' %}
+   
     <div class=" m-2 p-3 ">
-        {% block content %}
-            {% include 'includes/messages.html' %}
-        {% endblock content %}
-        {% include 'includes/footer.html' %}
-    </div>
+        <div class="mx-5">
+            
+            {% block content %}
+               
+            {% endblock content %}
+        </div>
+    </div>  
+    {% include 'includes/footer.html' %}
 </body>
 </html>

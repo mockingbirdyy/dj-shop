@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container text-center">
+        <div class="card-body rounded mt-4 form-control shadow"
+             style="margin: auto;
+                    width: 40%;
+                    border: 5px;
+                    padding: 20px;">
+            <form method="post" action="">
+                <div class="card-body text-center">
+                    <h3 class="h3 mb-3 fw-normal">Login</h3>
+                    <div class="col">
+                        {% csrf_token %}
+                        {{ form.username }}
+                        <small class="text-muted">{{ form.username.errors }}</small>
+                    </div>
+                    <br>
+                    <div class="col">
+                        
+                        {{ form.password }}
+                        <small class="text-muted">{{ form.password.errors }}</small>
+                    </div>
+                    <br>
+                    <div class="d-grid gap-2">
+                        <input class="btn btn-outline-primary" type="submit" value="Login">
+                    </div>
+                </form>
+            </div>
+            <a href="#"><small class="">Dont remember your password ?</small></a>
+        </div>
+    </div>
+{% endblock content %}
