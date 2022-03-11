@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',
+    'storages', # pip install django-storages; see more on https://django-storages.readthedocs.io/en/latest/
 ]
 
 MIDDLEWARE = [
@@ -117,6 +118,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+#############################################################################
 # Google smtp 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -124,3 +127,16 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'amirafshar.d@gmail.com'
 EMAIL_HOST_PASSWORD = 'ddejrfqsloyuhifk'
+
+#############################################################################
+
+# arvancloud
+# more on https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_ACCESS_KEY_ID = '5a987142-a0f5-4d10-8629-874ae892a2cb'
+AWS_SECRET_ACCESS_KEY = 'a591ad1cdffba06e8172a8485044d18b0ad1e5505134ed263de7037ea2f12e45'
+AWS_S3_ENDPOINT_URL = 'https://s3.ir-thr-at1.arvanstorage.com'
+AWS_STORAGE_BUCKET_NAME = 'dj-shop'
+AWS_S3_FILE_OVERWRITE = False
+AWS_SERVICE_NAME = 's3'
