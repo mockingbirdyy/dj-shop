@@ -3,9 +3,10 @@ from django.views.generic import View
 from .models import Product
 from . import tasks
 from django.contrib import messages
-# home page of site that shows products, categories  etc.
+from utils import IsUserAdminMixin
 
 
+# Home page of site that shows products, categories etc.
 class Home(View):
     def get(self, request):
         products = Product.objects.filter(available=True)
@@ -18,7 +19,7 @@ class ProductDetailView(View):
         return render(request, 'products/product_detail.html', {'products': products})
 
 
-class BucketView(View):
+class BucketView(IsUserAdminMixin, View):
 
     template_name = 'products/bucket.html'
 
@@ -26,14 +27,14 @@ class BucketView(View):
     	objects = tasks.all_bucket_objects_task()
     	return render(request, self.template_name, {'objects': objects})
 
-class BucketDeleteView(View):
+class BucketDeleteView(IsUserAdminMixin, View):
     
     def get(self, request, key):    
         tasks.delete_object_task.delay(key)
         messages.success(request, 'object will be deleted soon!', 'success')
         return redirect('products:bucket')
 
-class BucketDownloadView(View):
+class BucketDownloadView(IsUserAdminMixin, View):
     
     def get(self, request, key):    
         tasks.download_object_task.delay(key)
