@@ -140,3 +140,4 @@ AWS_S3_ENDPOINT_URL = 'https://s3.ir-thr-at1.arvanstorage.com'
 AWS_STORAGE_BUCKET_NAME = 'dj-shop'
 AWS_S3_FILE_OVERWRITE = False
 AWS_SERVICE_NAME = 's3'
+AWS_LOCAL_STORAGE = BASE_DIR / '/aws/'

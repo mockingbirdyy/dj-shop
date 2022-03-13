@@ -9,8 +9,8 @@ def send_otp_code(phone_number):
        installing kavenegar: <pip install kavenegar> '''
   
     try:
-        # creating an instance from kavenegar giving your own APIKEY,
-        #  set params and send it 
+        # creating an instance from kavenegar giving your own APIKEY as arg,
+        # set params and send it 
         api = KavenegarAPI('Your APIKEY')
         params = {
             'sender': '',

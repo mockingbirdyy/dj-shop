@@ -93,7 +93,7 @@ class SendVerifyCodeAgain(View):
 
 class UserLoginView(LoginView):
     template_name = 'accounts/login.html'
-    # overriding get_form class to customize froms in UserLOginView: here using bootstrap
+    # overriding get_form class to customize forms in UserLOginView: here using bootstrap
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class=form_class)
@@ -109,7 +109,7 @@ class UserLogoutView(LoginRequiredMixin, LogoutView):
 
 #############################################################################
 
-"""Reset password  when users have fogotten thier password,
+"""Reset password  when users have forgotten their password,
 here using google smtp but you can use other services"""
 
 class UserPasswordResetView(PasswordResetView):

@@ -18,7 +18,7 @@ class Product(models.Model):
     slug = models.SlugField(max_length=40, unique=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='product_category')
     # pip install pillow for working with images in django
-    image = models.ImageField(upload_to='products/%Y/%m/%d/')
+    image = models.ImageField()
     description = models.TextField(max_length=10000)
     price = models.DecimalField(max_digits=5, decimal_places=2)
     available = models.BooleanField(default=True)
