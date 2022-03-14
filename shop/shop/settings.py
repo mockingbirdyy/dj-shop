@@ -24,7 +24,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',
-    'storages', # pip install django-storages; see more on https://django-storages.readthedocs.io/en/latest/
+    # third-party apps
+    # pip install django-storages; see more on https://django-storages.readthedocs.io/en/latest/
+    'storages', 
+    # pip install django-celery-beat; see more on https://docs.celeryproject.org/en/stable/userguide/periodic-tasks.html
+    'django_celery_beat',# use python manage.py migrate to create table for celery beat
 ]
 
 MIDDLEWARE = [

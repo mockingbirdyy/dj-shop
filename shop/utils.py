@@ -3,7 +3,6 @@ from accounts.models import OtpCode
 from kavenegar import *
 from django.contrib.auth.mixins import UserPassesTestMixin
 
-
 # creating a one time pass code and send it for user  
 def send_otp_code(phone_number):
     random_code = randint(1000, 9999)
