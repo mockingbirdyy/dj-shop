@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Size</th>
+                <th scope="col">Download</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        {% for obj in objects %}
+            <tbody>
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ obj.Key }}</td>
+                    <td>{{ obj.Size|filesizeformat }}</td>
+                    <td>
+                        <a href="{% url 'products:download_object' obj.Key %}">Download</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'products:delete_object' obj.Key %}">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+{% endblock content %}
