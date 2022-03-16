@@ -9,7 +9,7 @@ from utils import IsUserAdminMixin
 # Home page of site that shows products, categories etc.
 class Home(View):
     def get(self, request, category_slug=None):
-        categories = Category.objects.all()
+        categories = Category.objects.filter(is_sub=False)
         products = Product.objects.filter(available=True)
         if category_slug:
             category = Category.objects.get(slug=category_slug)

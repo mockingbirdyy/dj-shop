@@ -2,7 +2,7 @@ from django.db import models
 from django.shortcuts import reverse
 
 class Category(models.Model):
-    sub_category = models.ForeignKey('self', on_delete=models.CASCADE, related_name='sub_category_related_name', null=True, blank=True))
+    sub_category = models.ForeignKey('self', on_delete=models.CASCADE, related_name='sub_category_related', null=True, blank=True)
     is_sub = models.BooleanField(default=False)
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=40, unique=True)
@@ -22,7 +22,7 @@ class Product(models.Model):
     name = models.CharField(max_length=50)
     author = models.CharField(max_length=60)
     slug = models.SlugField(max_length=40, unique=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='product_category')
+    category = models.ManyToManyField(Category, related_name='product_category_related')
     # pip install pillow for working with images in django
     image = models.ImageField()
     description = models.TextField(max_length=10000)

@@ -5,6 +5,7 @@
             <nav class="nav d-flex justify-content-between"
                  style="font-family: cursive; font-size: 30px; ">
                 {% for category in categories %}
+                    
                     <a class="p-2 link-secondary" href="{{ category.get_absolute_url }}">{{ category.name }}</a>
                 {% endfor %}
             </nav>
@@ -45,4 +46,5 @@
                 </div>
             </a>
         {% endfor %}
+    
     {% endblock content %}
