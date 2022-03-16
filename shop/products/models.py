@@ -2,6 +2,8 @@ from django.db import models
 from django.shortcuts import reverse
 
 class Category(models.Model):
+    sub_category = models.ForeignKey('self', on_delete=models.CASCADE, related_name='sub_category_related_name', null=True, blank=True))
+    is_sub = models.BooleanField(default=False)
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=40, unique=True)
     class Meta:
@@ -11,6 +13,10 @@ class Category(models.Model):
     
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("products:product_category", args=[self.slug])
+    
     
 class Product(models.Model):
     name = models.CharField(max_length=50)

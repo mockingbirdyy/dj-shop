@@ -1,36 +1,48 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="album py-5">
-        <div class="container">
-            <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
-                <div class="col-md-6 px-0">
-                    <h1 class="display-4 fst-italic">Title of a longer featured blog post</h1>
-                    <p class="lead my-3">
-                        Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.
-                    </p>
-                    <p class="lead mb-0">
-                        <a href="#" class="text-white fw-bold">Continue reading...</a>
-                    </p>
-                </div>
+    <div class="container">
+        <div class="nav-scroller py-1 mb-2  ">
+            <nav class="nav d-flex justify-content-between"
+                 style="font-family: cursive; font-size: 30px; ">
+                {% for category in categories %}
+                    <a class="p-2 link-secondary" href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+                {% endfor %}
+            </nav>
+        </div>
+        <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
+            <div class="col-md-6 px-0">
+                <h1 class="display-4 fst-italic">Title of a longer featured blog post</h1>
+                <p class="lead my-3">
+                    Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.
+                </p>
+                <p class="lead mb-0">
+                    <a href="#" class="text-white fw-bold">Continue reading...</a>
+                </p>
             </div>
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                {% for product in products %}
-                    <a class="text-decoration-none" href="{{ product.get_absolute_url }}"><div class="col">
+        </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for product in products %}
+                <a class="text-decoration-none" href="{{ product.get_absolute_url }}">
+                    <div class="col">
                         <div class="card shadow-sm ">
                             <img src="{{ product.image.url }}" class="card-img-top" height="280">
                         </svg>
                         <div class="card-body">
                             <p class="card-text">
-                                {{ product.name }}</p><p class="text-muted">by {{ product.author }}
+                                {{ product.name }}
+                            </p>
+                            <p class="text-muted">
+                                by {{ product.author }}
                             </p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">Add</button>
                                 </div>
                                 <small class="text-primary">$ {{ product.price }}</small>
                             </div>
                         </div>
                     </div>
-                </div></a>
+                </div>
+            </a>
         {% endfor %}
     {% endblock content %}

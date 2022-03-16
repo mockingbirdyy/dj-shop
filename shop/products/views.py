@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import View
-from .models import Product
+from .models import Product, Category
 from . import tasks
 from django.contrib import messages
 from utils import IsUserAdminMixin
@@ -8,9 +8,13 @@ from utils import IsUserAdminMixin
 
 # Home page of site that shows products, categories etc.
 class Home(View):
-    def get(self, request):
+    def get(self, request, category_slug=None):
+        categories = Category.objects.all()
         products = Product.objects.filter(available=True)
-        return render(request, 'products/home.html', {'products': products})
+        if category_slug:
+            category = Category.objects.get(slug=category_slug)
+            products = products.filter(category=category) 
+        return render(request, 'products/home.html', {'products': products, 'categories': categories})
 
 
 class ProductDetailView(View):
