@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',
+    'orders.apps.OrdersConfig',
     # third-party apps
     # pip install django-storages; see more on https://django-storages.readthedocs.io/en/latest/
     'storages', 
@@ -54,6 +55,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'orders.context_processors.cart',
             ],
         },
     },

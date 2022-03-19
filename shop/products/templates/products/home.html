@@ -23,21 +23,23 @@
         </div>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             {% for product in products %}
-                <a class="text-decoration-none" href="{{ product.get_absolute_url }}">
+                
                     <div class="col">
                         <div class="card shadow-sm ">
+                            <a class="text-decoration-none" href="{{ product.get_absolute_url }}">
+                    
                             <img src="{{ product.image.url }}" class="card-img-top" height="280">
-                        </svg>
+                       </a>
                         <div class="card-body">
-                            <p class="card-text">
+                            <a class="text-decoration-none" href="{{ product.get_absolute_url }}">
                                 {{ product.name }}
-                            </p>
+                            </a>
                             <p class="text-muted">
                                 by {{ product.author }}
                             </p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Add</button>
+                                    <a href="{% url 'orders:cart_add' product.id %}" type="button" class="btn btn-sm btn-outline-secondary">Add</a>
                                 </div>
                                 <small class="text-primary">$ {{ product.price }}</small>
                             </div>

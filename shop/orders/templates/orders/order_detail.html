@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="card-body rounded mt-4"
+             style="margin: auto;
+                    width: 60%;
+                    border: 5px;
+                    padding: 20px;">
+<div class="modal-content bg-success text-white text-center rounded-6 shadow">
+    <div class="modal-body py-0">
+        <br>
+        <h3>Payment</h3>
+        <h1 class="card-title pricing-card-title">${{ cart.get_total_price|floatformat:-2 }}</h1>
+    </div>
+    <div class="modal-footer flex-column border-top-0">
+      <button type="button" class="btn btn-lg btn-warning w-100 mx-0 mb-2">Pay</button>
+      <a href="{% url 'products:home' %}" type="button" class="btn btn-lg btn-light w-100 mx-0" >Close</a>
+    </div>
+  </div>
+</div>
+</div>  
+{% endblock content %}
+
+
+
+

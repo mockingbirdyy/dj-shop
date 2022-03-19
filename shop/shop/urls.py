@@ -6,7 +6,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     # include url file in your app and namespace is your app name
-    path('', include('accounts.urls', namespace='accounts')),
+    path('accounts/', include('accounts.urls', namespace='accounts')),
     path('', include('products.urls', namespace='products')),
+    path('orders/', include('orders.urls', namespace='orders')),
 
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)     
