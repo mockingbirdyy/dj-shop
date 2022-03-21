@@ -9,7 +9,7 @@ class Order(models.Model):
     updated = models.DateTimeField(auto_now=False, null=True)
 
     def get_total_price(self):
-        return sum(item.get_cost() for item in self.product_related_name.all())
+        return sum(item.get_cost() for item in self.oreder_related_name.all())
     
     def __str__(self):
         return f'{self.user}-{self.paid}'
@@ -28,5 +28,3 @@ class OrderItem(models.Model):
     def get_cost(self):
         return self.price * self.quantity
 
-
-    

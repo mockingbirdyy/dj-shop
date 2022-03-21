@@ -33,7 +33,7 @@
         <h4 class="my-0 fw-normal">Total</h4>
       </div>
       <div class="card-body">
-        <h1 class="card-title pricing-card-title">${{ cart.get_total_price|floatformat:-2 }}</h1>
+        <h1 class="card-title pricing-card-title text-warning">${{ cart.get_total_price|floatformat:-2 }}</h1>
         <ul class="list-unstyled mt-3 mb-4">
         </ul>
         <a href="{% url 'orders:order_create' %}" type="button" class="w-100 btn btn-lg btn-outline-success">Checkout</a>
