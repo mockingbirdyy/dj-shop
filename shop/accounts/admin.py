@@ -29,6 +29,14 @@ class UserAdminClass(UserAdmin):
     ordering = ('full_name',)
     search_fields = ('phone_number', 'full_name')
     filter_horizontal = ('groups', 'user_permissions')
+    readonly_fields = ('last_login',)
+
+    # limiting admin user that they can not make themselves super user
+    def get_form(self, request, obj=None, *args, **kwargs):
+        form = super().get_form(request, obj=None, *args, **kwargs)
+        if not request.user.is_superuser:
+            form.base_fields['is_superuser'].disabled = True
+        return form
 
 
 

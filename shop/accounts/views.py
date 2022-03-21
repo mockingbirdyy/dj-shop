@@ -11,7 +11,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
 
-
 class RegisterView(View):
     form_class = UserCreationForm
 

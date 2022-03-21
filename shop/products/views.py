@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic import View
 from .models import Product, Category
 from . import tasks
@@ -25,8 +26,10 @@ class ProductDetailView(View):
         return render(request, 'products/product_detail.html', {'products': products, 'form': form})
 
 
-class BucketView(IsUserAdminMixin, View):
-
+class BucketView(PermissionRequiredMixin, IsUserAdminMixin, View):
+    # limiting users with perms
+    permission_required = 'products.view.product'
+    
     template_name = 'products/bucket.html'
 
     def get(self, request):
