@@ -16,8 +16,8 @@ class UserAdminClass(UserAdmin):
         ("UserInfo",
             {"fields": ('full_name', 'email', 'phone_number', 'password')}),
 
-        ("permisions",
-            {'fields': ('is_admin', 'is_active', 'last_login')})
+        ("permissions",
+            {'fields': ('is_admin', 'is_active', 'is_superuser', 'last_login', 'groups', 'user_permissions')})
     )
 
     add_fieldsets = (
@@ -28,9 +28,8 @@ class UserAdminClass(UserAdmin):
     list_filter = ('is_admin',)
     ordering = ('full_name',)
     search_fields = ('phone_number', 'full_name')
-    filter_horizontal = ()
+    filter_horizontal = ('groups', 'user_permissions')
 
 
 
 admin.site.register(User, UserAdminClass)
-admin.site.unregister(Group)

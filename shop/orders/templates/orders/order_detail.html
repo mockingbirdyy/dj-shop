@@ -3,21 +3,33 @@
     <div class="container">
         <div class="card-body rounded mt-4"
              style="margin: auto;
-                    width: 60%;
+                    width: 50%;
                     border: 5px;
                     padding: 20px;">
-            <div class="modal-content bg-success text-white text-center rounded-6 shadow">
+            <div class="modal-content bg-light text-dark text-center rounded-6 shadow">
                 <div class="modal-body py-0">
                     <br>
                     <h3>Payment</h3>
-                    <h1 class="card-title pricing-card-title">${{ order.get_total_price|floatformat:-2 }}</h1>
+                    <h1 class="card-title pricing-card-title">${{ order.get_total_price }}</h1>
+                <br>
+                    <form action="{% url 'orders:coupon_apply' order.id %}" method="post"> 
+                    {% csrf_token %}
+                    {{ form.none_field_errors }}
+                    {{ form.code }}
+                    <small class="text-muted">{{ form.code.errors }}</small>
+                        <br>
+                    <div class="d-grid gap-2">
+                        <input class=" btn btn-md btn-outline-success" type="submit" value="Verify Coupon">
+                    </div>
+                </form><hr>
                 </div>
+                
                 <div href="{% url 'orders:order_pay' order.id %}"
                      class="modal-footer flex-column border-top-0">
-                    <a type="button" class="btn btn-lg btn-warning w-100 mx-0 mb-2">Pay</a>
+                    <a type="button" class="btn btn-md btn-outline-warning w-100 mx-0 mb-2">Pay</a>
                     <a href="{% url 'products:home' %}"
                        type="button"
-                       class="btn btn-lg btn-light w-100 mx-0">Close</a>
+                       class="btn btn-md btn-outline-secondary w-100 mx-0">Close</a>
                 </div>
             </div>
         </div>
